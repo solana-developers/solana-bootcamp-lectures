@@ -1,0 +1,19 @@
+cargo-features = ["edition2021"]
+
+[package]
+name = "authorized_counter"
+version = "0.1.0"
+edition = "2021"
+license = "WTFPL"
+publish = false
+
+[dependencies]
+borsh = "0.9"
+solana-program = "=1.9.1"
+thiserror = "1.0"
+
+[features]
+no-entrypoint = []
+
+[lib]
+crate-type = ["cdylib", "lib"]
