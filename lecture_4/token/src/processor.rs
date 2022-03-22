@@ -7,7 +7,7 @@ use solana_program::{
     pubkey::Pubkey,
 };
 
-use crate::instruction::TokenInstruction;
+use crate::instructions::TokenInstruction;
 use crate::state::{Mint, AccountTag, TokenAccount};
 
 pub fn assert_with_msg(statement: bool, err: ProgramError, msg: &str) -> ProgramResult {
