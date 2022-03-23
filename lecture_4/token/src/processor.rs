@@ -1,4 +1,4 @@
-use borsh::{BorshDeserialize, BorshSerialize};
+use borsh::{BorshDeserialize};
 use solana_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint::ProgramResult,
@@ -49,7 +49,6 @@ impl Processor {
             TokenInstruction::InitializeTokenAccount => {
                 let token_account_ai = next_account_info(accounts_iter)?;
                 let mint_ai = next_account_info(accounts_iter)?;
-                let mint = Mint::load(mint_ai)?;
                 let owner = next_account_info(accounts_iter)?;
                 let mut token_account = TokenAccount::load_unchecked(token_account_ai)?;
                 // TODO
