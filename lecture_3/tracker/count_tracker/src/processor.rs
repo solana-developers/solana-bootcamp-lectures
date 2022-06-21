@@ -62,8 +62,9 @@ impl Processor {
                         42,
                         program_id,
                     ),
+                    // making sure downstream program has all necessary data
                     &[user.clone(), tracker_ai.clone(), system_program.clone()],
-                    &[&[user.key.as_ref(), counter.key.as_ref(), &[bump]]],
+                    &[&[user.key.as_ref(), counter.key.as_ref(), &[bump]]], // signature
                 )?;
                 assert_with_msg(
                     *system_program.key == SYSTEM_PROGRAM_ID,
@@ -100,16 +101,6 @@ impl Processor {
 
                 // Deserialize account data
                 let mut tracker = Tracker::try_from_slice(&tracker_ai.data.borrow())?;
-
-                // Validate auth seeds
-                let authority_seeds = &[counter.key.as_ref(), &[tracker.auth_bump]];
-                let auth_key = Pubkey::create_program_address(authority_seeds, program_id)?;
-                assert_with_msg(
-                    auth_key == *authority.key,
-                    ProgramError::InvalidArgument,
-                    "Invalid PDA seeds for authority",
-                )?;
-
                 // Validate tracker seeds
                 let tracker_seeds = &[user.key.as_ref(), counter.key.as_ref(), &[tracker.bump]];
                 let tracker_key = Pubkey::create_program_address(tracker_seeds, program_id)?;

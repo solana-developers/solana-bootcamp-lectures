@@ -6,5 +6,5 @@ pub struct Tracker {
     pub bump: u8, // bump seed of tracker
     pub auth_bump: u8, // bump seed of the auth
     pub counter: Pubkey,
-    pub count: u64,
+    pub count: u64, // tracked value
 }

@@ -17,7 +17,7 @@ const main = async () => {
   const programId = new PublicKey(args[0]);
 
   console.log(programId.toBase58());
-  const connection = new Connection("https://api.devnet.solana.com/");
+  const connection = new Connection("http://127.0.0.1:8899");
   const feePayer = new Keypair();
 
   console.log("Requesting Airdrop of 1 SOL...");
@@ -45,17 +45,19 @@ const main = async () => {
     });
     signers.push(counter);
     tx.add(createIx);
+    console.log(await connection.getMinimumBalanceForRentExemption(8));
   }
 
-  const idx = Buffer.from(new Uint8Array([0]));
+  const idx = Buffer.from(new Uint8Array([1]));
+  //TODO
 
-  let incrIx = new TransactionInstruction({
+  const incrIx = new TransactionInstruction({
     keys: [
       {
         pubkey: counterKey,
         isSigner: false,
         isWritable: true,
-      }
+      },
     ],
     programId: programId,
     data: idx,
@@ -72,11 +74,11 @@ const main = async () => {
   let txid = await sendAndConfirmTransaction(connection, tx, signers, {
     skipPreflight: true,
     preflightCommitment: "confirmed",
-    confirmation: "confirmed",
+    commitment: "confirmed",
   });
   console.log(`https://explorer.solana.com/tx/${txid}?cluster=devnet`);
 
-  data = (await connection.getAccountInfo(counterKey)).data;
+  data = (await connection.getAccountInfo(counterKey, "confirmed")).data;
   count = new BN(data, "le");
   console.log("Counter Key:", counterKey.toBase58());
   console.log("Count: ", count.toNumber());

@@ -142,7 +142,7 @@ const main = async () => {
     trackerProgramId
   ))[0];
 
-  let trackerData = await connection.getAccountInfo(trackerKey)
+  let trackerData = await connection.getAccountInfo(trackerKey, "confirmed")
   if (!trackerData) {
     console.log("    -> No tracker account found. Creating new tracker account");
     const initializeIx = initialize(
@@ -169,7 +169,7 @@ const main = async () => {
   let txid = await sendAndConfirmTransaction(connection, tx, signers, {
     skipPreflight: true,
     preflightCommitment: "confirmed",
-    confirmation: "confirmed",
+    commitment: "confirmed",
   });
   console.log(`https://explorer.solana.com/tx/${txid}?cluster=devnet`);
 

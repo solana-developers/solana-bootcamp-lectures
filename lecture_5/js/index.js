@@ -115,7 +115,7 @@ const main = async () => {
 
   console.log("Program: ", programId.toBase58());
 
-  const connection = new Connection("https://api.devnet.solana.com/");
+  const connection = new Connection("http://127.0.0.1:8899");
   let feePayer = new Keypair();
 
   let tx = new Transaction();

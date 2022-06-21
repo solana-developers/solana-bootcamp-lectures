@@ -3,4 +3,5 @@
 **/node_modules
 **/__pycache__
 .vscode
+**/.DS_Store
 **/*checkpoint.ipynb

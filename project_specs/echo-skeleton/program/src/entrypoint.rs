@@ -8,8 +8,8 @@ entrypoint!(process_instruction);
 
 fn process_instruction(
     program_id: &Pubkey,
-    accounts: &[AccountInfo], // Data to read/write
-    instruction_data: &[u8],  // Parameter Input
+    accounts: &[AccountInfo],
+    instruction_data: &[u8],
 ) -> ProgramResult {
     msg!(
         "process_instruction: {}: {} accounts, data={:?}",
